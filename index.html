@@ -1,1 +1,1012 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KRP Launcher | L.G.F.L</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:wght@400&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0c0f14;
+      --surface:#121622;
+      --surface2:#171c2b;
+      --surface3:#1c2233;
+      --text:#e7e9f1;
+      --outline:rgba(231,233,241,.10);
+      --outline2:rgba(231,233,241,.18);
+      --primary:#8ab4ff;
+      --danger:#ff7a7a;
+      --ok:#65d48e;
+      --admin:#bb86fc;
+      --news:#ffb86b;
+      --message:#50fa7b;
+      --bot:#ff79c6;
+      --roblox:#ff4d4d;
+      --krp-black:#2c2c2c;
+      --krp-blue:#3a6ea5;
+      --r-xl:22px;
+      --r-lg:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    
+    @keyframes slideInDown {
+      from { opacity: 0; transform: translateY(-100%); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      letter-spacing:.2px;
+      overflow-x: hidden;
+    }
+
+    .app{min-height:100%;display:flex;flex-direction:column}
+
+    .topbar{
+      position:sticky;top:0;z-index:10;
+      background:rgba(12,15,20,.86);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--outline);
+    }
+    .topbar__inner{
+      max-width:980px;margin:0 auto;padding:14px 16px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+    }
+    .brand{display:flex;align-items:center;gap:10px;min-width:160px}
+    .logo{
+      width:36px;height:36px;border-radius:12px;
+      background:var(--surface2);
+      border:1px solid var(--outline2);
+      display:grid;place-items:center;
+      box-shadow:var(--shadow);
+    }
+    .logo .material-symbols-rounded{
+      font-variation-settings:"FILL" 1,"wght" 500,"GRAD" 0,"opsz" 24;
+      color:var(--roblox);font-size:20px;line-height:1;
+    }
+    .brand__name{
+      background: linear-gradient(90deg, var(--roblox), var(--krp-blue), var(--krp-black));
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientFlow 4s linear infinite;
+      font-weight:800;letter-spacing:1px
+    }
+
+    .nav{display:flex;align-items:center;gap:8px}
+
+    .content{
+      max-width:980px;margin:0 auto;padding:16px;width:100%;
+      display:grid;grid-template-columns:1fr 280px;gap:14px;
+    }
+    @media (max-width:880px){ .content{grid-template-columns:1fr} .rightcol{order:-1} }
+
+    .card{
+      background:var(--surface);
+      border:1px solid var(--outline);
+      border-radius:var(--r-xl);
+      padding:16px;
+      box-shadow:var(--shadow);
+      animation: fadeInUp 0.6s ease-out;
+    }
+    
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+      border-color: var(--primary);
+    }
+    
+    .card__title{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;
+    }
+    .card__title h2{font-size:18px;margin:0;font-weight:800;letter-spacing:.4px}
+
+    .row{display:flex;gap:10px;align-items:center}
+    .col{display:flex;flex-direction:column;gap:10px}
+
+    .btn{
+      appearance:none;
+      border:1px solid var(--outline2);
+      background:var(--surface3);
+      color:var(--text);
+      border-radius:999px;
+      padding:10px 16px;
+      cursor:pointer;
+      font-weight:750;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display:inline-flex;align-items:center;gap:8px;
+      user-select:none;white-space:nowrap;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      border-color:var(--primary);
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn:disabled{opacity:.55;cursor:not-allowed}
+
+    .btn--primary{background:rgba(138,180,255,.16);border-color:rgba(138,180,255,.35)}
+    .btn--roblox{background:rgba(255,77,77,.16);border-color:rgba(255,77,77,.35); color: #ff8a8a;}
+    .btn--game{background:rgba(80,250,123,.16);border-color:rgba(80,250,123,.35)}
+    .btn--black{background:rgba(44,44,44,.8);border-color:#4a4a4a; color:#ffffff;}
+    .btn--blue{background:rgba(58,110,165,.8);border-color:#4d8cd4; color:#ffffff;}
+
+    .icon{
+      font-family:"Material Symbols Rounded";
+      font-weight:normal;font-style:normal;font-size:18px;line-height:1;
+      letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;
+      -webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;
+    }
+
+    .input{
+      width:100%;
+      background:var(--surface3);
+      border:1px solid var(--outline);
+      color:var(--text);
+      border-radius:var(--r-lg);
+      padding:12px 16px;
+      outline:none;
+      transition: all 0.2s ease;
+    }
+    .input:focus{
+      border-color:rgba(255,77,77,.5);
+      box-shadow:0 0 0 3px rgba(255,77,77,.15);
+      transform: scale(1.02);
+    }
+    .label{font-size:12px;opacity:.9;margin-bottom:6px}
+
+    .hr{height:1px;background:var(--outline);margin:16px 0}
+    .hidden{display:none !important}
+
+    .toast{
+      position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+      background:rgba(18,22,34,.92);
+      border:1px solid var(--outline2);
+      border-radius:999px;
+      padding:10px 14px;
+      display:none;align-items:center;gap:10px;
+      box-shadow:var(--shadow);
+      max-width:min(92vw,760px);
+      z-index:50;
+      animation: fadeInUp 0.3s ease-out;
+    }
+    .toast.show{display:flex}
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0;
+    }
+    
+    .game-card {
+      background: var(--surface2);
+      border: 2px solid var(--outline);
+      border-radius: var(--r-xl);
+      padding: 20px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .game-card[data-game="1"]:hover {
+      transform: translateY(-5px) scale(1.02);
+      border-color: #2c2c2c;
+      box-shadow: 0 10px 30px rgba(44,44,44,.5);
+    }
+    
+    .game-card[data-game="2"]:hover {
+      transform: translateY(-5px) scale(1.02);
+      border-color: #3a6ea5;
+      box-shadow: 0 10px 30px rgba(58,110,165,.5);
+    }
+    
+    .game-card.selected[data-game="1"] {
+      border-color: #2c2c2c;
+      background: rgba(44,44,44,.3);
+    }
+    
+    .game-card.selected[data-game="2"] {
+      border-color: #3a6ea5;
+      background: rgba(58,110,165,.3);
+    }
+    
+    .game-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+    
+    .game-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    
+    .game-desc {
+      font-size: 12px;
+      opacity: 0.7;
+    }
+    
+    .launch-section {
+      background: var(--surface2);
+      border-radius: var(--r-lg);
+      padding: 16px;
+      margin: 16px 0;
+      border: 1px solid var(--outline);
+    }
+    
+    .roblox-badge {
+      background: rgba(255,77,77,.15);
+      border: 1px solid rgba(255,77,77,.3);
+      color: #ff8a8a;
+      padding: 6px 12px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .krp-badge {
+      background: rgba(58,110,165,.15);
+      border: 1px solid rgba(58,110,165,.3);
+      color: #8ab4ff;
+      padding: 6px 12px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .avatar-preview {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--roblox);
+    }
+    
+    .avatar-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .avatar-preview .placeholder {
+      width: 100%;
+      height: 100%;
+      background: var(--surface3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--roblox);
+    }
+    
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--surface2);
+      border: 1px solid var(--outline);
+    }
+    
+    .status-online {
+      color: var(--message);
+    }
+    
+    .status-offline {
+      color: var(--danger);
+    }
+    
+    .badge {
+      display:inline-flex;align-items:center;gap:6px;
+      padding:4px 9px;border-radius:999px;
+      font-size:12px;border:1px solid var(--outline2);
+      background:rgba(255,255,255,.04);
+    }
+    
+    .badge--roblox {
+      border-color:rgba(255,77,77,.35);
+      background:rgba(255,77,77,.10);
+      color:#ff8a8a;
+    }
+    
+    .badge--black {
+      border-color:#2c2c2c;
+      background:rgba(44,44,44,.3);
+      color:#ffffff;
+    }
+    
+    .badge--blue {
+      border-color:#3a6ea5;
+      background:rgba(58,110,165,.3);
+      color:#8ab4ff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="topbar__inner">
+        <div class="brand">
+          <div class="logo" title="KRP Launcher"><span class="material-symbols-rounded">sports_esports</span></div>
+          <div class="brand__name">KRP LAUNCHER</div>
+        </div>
+
+        <nav class="nav">
+          <button id="navLauncher" class="btn btn--ghost"><span class="icon">videogame_asset</span> Лаунчер</button>
+          <button id="navProfile" class="btn btn--ghost hidden"><span class="icon">account_circle</span> Профиль</button>
+          <button id="btnLogout" class="btn btn--danger hidden"><span class="icon">logout</span> Выйти</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="leftcol">
+        <!-- AUTH CARD -->
+        <div id="authCard" class="card">
+          <div class="card__title">
+            <h2><span class="icon" style="color:var(--roblox);">lock</span> Вход в лаунчер</h2>
+            <span class="krp-badge"><span class="icon">stadia_controller</span> KRP</span>
+          </div>
+
+          <div class="col" style="gap:16px;">
+            <div>
+              <div class="label">Игровой ник</div>
+              <input id="robloxUsername" class="input" placeholder="Ваш никнейм" autocomplete="off">
+              <div style="font-size:11px; opacity:0.6; margin-top:4px;">Ваш уникальный ник в системе</div>
+            </div>
+            
+            <div>
+              <div class="label">Пароль</div>
+              <input id="authPass" class="input" type="password" placeholder="••••••••" autocomplete="current-password">
+            </div>
+
+            <div class="row" style="justify-content:space-between; flex-wrap:wrap;">
+              <div class="row">
+                <button id="btnLogin" class="btn btn--roblox"><span class="icon">login</span> Войти</button>
+                <button id="btnRegister" class="btn"><span class="icon">person_add</span> Регистрация</button>
+              </div>
+              <div id="authErr" style="color:var(--danger);"></div>
+            </div>
+            
+            <div class="hr"></div>
+            
+            <div style="text-align:center; opacity:0.7;">
+              <span class="icon" style="font-size:32px;">sports_esports</span>
+              <p style="margin:8px 0 0;">Войдите, чтобы получить доступ к серверам KRP</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- LAUNCHER CARD (основной) -->
+        <div id="launcherCard" class="card hidden">
+          <div class="card__title">
+            <h2><span class="icon" style="color:var(--roblox);">stadia_controller</span> KRP Лаунчер</h2>
+            <span id="playerName" class="badge badge--roblox"><span class="icon">person</span> Загрузка...</span>
+          </div>
+
+          <!-- Информация о игроке -->
+          <div class="row" style="gap:16px; margin-bottom:16px; padding:12px; background:var(--surface2); border-radius:var(--r-lg);">
+            <div id="playerAvatar" class="avatar-preview">
+              <div class="placeholder">?</div>
+            </div>
+            <div>
+              <div style="font-size:18px; font-weight:bold;" id="playerDisplayName">Игрок</div>
+              <div class="row" style="gap:8px; margin-top:4px;">
+                <span class="badge" id="playerStatus"><span class="icon">check_circle</span> Активен</span>
+                <span class="badge badge--roblox"><span class="icon">stadia_controller</span> KRP</span>
+              </div>
+            </div>
+          </div>
+
+          <h3 style="margin:16px 0 8px;">Выберите сервер</h3>
+          
+          <!-- Сетка игр -->
+          <div class="game-grid">
+            <div class="game-card" data-game="1" id="game1">
+              <div class="game-icon">⚫</div>
+              <div class="game-title">KRP BLACK</div>
+              <div class="game-desc">Основной сервер с расширенными возможностями и эксклюзивным контентом</div>
+              <div style="margin-top:12px;">
+                <span class="badge badge--black"><span class="icon">group</span> 1.2k онлайн</span>
+              </div>
+            </div>
+            
+            <div class="game-card" data-game="2" id="game2">
+              <div class="game-icon">🔵</div>
+              <div class="game-title">KRP BLUE</div>
+              <div class="game-desc">Классический сервер с оптимизацией и стабильным соединением</div>
+              <div style="margin-top:12px;">
+                <span class="badge badge--blue"><span class="icon">group</span> 3.4k онлайн</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Запуск игры -->
+          <div class="launch-section">
+            <div class="row" style="justify-content:space-between; margin-bottom:12px;">
+              <span><span class="icon">play_circle</span> Готов к запуску</span>
+              <span id="selectedGameName" style="opacity:0.7;">Не выбрано</span>
+            </div>
+            
+            <div class="row" style="gap:12px; flex-wrap:wrap;">
+              <button id="btnLaunchGame" class="btn btn--game" disabled style="flex:1;">
+                <span class="icon">play_arrow</span> Запустить сервер
+              </button>
+              <button id="btnCopyLink" class="btn btn--ghost" disabled title="Скопировать ссылку на игру">
+                <span class="icon">link</span>
+              </button>
+            </div>
+            
+            <div style="margin-top:12px; font-size:12px; opacity:0.6; text-align:center;">
+              После запуска сервер откроется в Roblox
+            </div>
+          </div>
+
+          <!-- История запусков -->
+          <div>
+            <div class="row" style="justify-content:space-between; margin-bottom:8px;">
+              <h3 style="margin:0; font-size:14px;">📋 История запусков</h3>
+              <button id="btnClearHistory" class="btn btn--ghost" style="padding:4px 8px;">
+                <span class="icon">clear_all</span>
+              </button>
+            </div>
+            <div id="launchHistory" style="max-height:200px; overflow-y:auto;"></div>
+          </div>
+        </div>
+
+        <!-- PROFILE CARD -->
+        <div id="profileCard" class="card hidden">
+          <div class="card__title">
+            <h2><span class="icon" style="color:var(--roblox);">account_circle</span> Профиль игрока</h2>
+          </div>
+
+          <div class="col" style="gap:16px;">
+            <div class="row" style="gap:20px; flex-wrap:wrap;">
+              <div class="avatar-preview" id="profileAvatar" style="width:80px; height:80px;">
+                <div class="placeholder">?</div>
+              </div>
+              <div style="flex:1;">
+                <div class="label">Отображаемое имя</div>
+                <div class="row" style="gap:8px;">
+                  <input id="displayName" class="input" placeholder="Ваше имя" style="flex:1;">
+                  <button id="btnSaveDisplayName" class="btn btn--primary"><span class="icon">save</span></button>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="label">Игровой ник (логин)</div>
+              <div class="row" style="gap:8px;">
+                <input id="robloxName" class="input" disabled style="flex:1;">
+              </div>
+            </div>
+
+            <div class="hr"></div>
+
+            <div>
+              <div class="label">Статистика</div>
+              <div class="row" style="gap:16px; flex-wrap:wrap;">
+                <span class="badge"><span class="icon">play_arrow</span> Запусков: <b id="launchCount">0</b></span>
+                <span class="badge"><span class="icon">schedule</span> Последний вход: <span id="lastLogin">никогда</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="rightcol">
+        <div class="card">
+          <div class="card__title"><h2>Статус</h2></div>
+          <div class="col" style="gap:10px;">
+            <div class="row" style="gap:8px;">
+              <div id="smallAvatar" class="avatar-preview" style="width:32px; height:32px;">
+                <div class="placeholder">?</div>
+              </div>
+              <span id="statusAuth" class="badge"><span class="icon">key</span> Гость</span>
+            </div>
+            <span id="robloxStatus" class="badge hidden"><span class="icon">stadia_controller</span> KRP: ок</span>
+            <span id="onlineStatus" class="badge status-offline"><span class="icon">circle</span> Оффлайн</span>
+            <span id="lastPlayed" class="badge"><span class="icon">history</span> Последнее: —</span>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card__title"><h2>KRP Online</h2></div>
+          <div style="text-align:center;">
+            <div style="font-size:36px; margin:10px 0;">🎮</div>
+            <div><span class="krp-badge"><span class="icon">group</span> 4.6K всего</span></div>
+            <div style="margin-top:12px; display:flex; gap:8px; justify-content:center;">
+              <span class="badge badge--black">BLACK 1.2K</span>
+              <span class="badge badge--blue">BLUE 3.4K</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <div id="toast" class="toast">
+      <span class="icon" id="toastIcon">info</span>
+      <div id="toastMsg"></div>
+    </div>
+  </div>
+
+  <script>
+    // ====== КОНФИГУРАЦИЯ ======
+    const GAMES = {
+      1: {
+        name: "KRP BLACK",
+        url: "https://www.roblox.com/games/133924221012482/Black",
+        desc: "Основной сервер KRP",
+        icon: "⚫",
+        color: "black",
+        online: "1.2K"
+      },
+      2: {
+        name: "KRP BLUE",
+        url: "https://www.roblox.com/games/106538461230862/Blue",
+        desc: "Классический сервер KRP",
+        icon: "🔵",
+        color: "blue",
+        online: "3.4K"
+      }
+    };
+
+    const LS_KEY = "krp_launcher_v1";
+    const ENCRYPTION_KEY = "KRPLAUNCHER2024";
+
+    // ====== DOM ЭЛЕМЕНТЫ ======
+    const $ = id => document.getElementById(id);
+    
+    const authCard = $("authCard");
+    const launcherCard = $("launcherCard");
+    const profileCard = $("profileCard");
+    
+    const navLauncher = $("navLauncher");
+    const navProfile = $("navProfile");
+    const btnLogout = $("btnLogout");
+    
+    const robloxUsername = $("robloxUsername");
+    const authPass = $("authPass");
+    const btnLogin = $("btnLogin");
+    const btnRegister = $("btnRegister");
+    const authErr = $("authErr");
+    
+    const playerName = $("playerName");
+    const playerDisplayName = $("playerDisplayName");
+    const playerAvatar = $("playerAvatar");
+    const smallAvatar = $("smallAvatar");
+    const playerStatus = $("playerStatus");
+    
+    const game1 = $("game1");
+    const game2 = $("game2");
+    const selectedGameName = $("selectedGameName");
+    const btnLaunchGame = $("btnLaunchGame");
+    const btnCopyLink = $("btnCopyLink");
+    const launchHistory = $("launchHistory");
+    const btnClearHistory = $("btnClearHistory");
+    
+    const profileAvatar = $("profileAvatar");
+    const displayNameInput = $("displayName");
+    const robloxName = $("robloxName");
+    const btnSaveDisplayName = $("btnSaveDisplayName");
+    const launchCount = $("launchCount");
+    const lastLogin = $("lastLogin");
+    
+    const statusAuth = $("statusAuth");
+    const robloxStatus = $("robloxStatus");
+    const onlineStatus = $("onlineStatus");
+    const lastPlayed = $("lastPlayed");
+    
+    const toastEl = $("toast");
+    const toastIcon = $("toastIcon");
+    const toastMsg = $("toastMsg");
+
+    // ====== СОСТОЯНИЕ ======
+    let sessionUser = null;
+    let selectedGame = null;
+    let toastTimer = null;
+
+    // ====== УТИЛИТЫ ======
+    function toast(message, icon = "info", ms = 2400) {
+      toastIcon.textContent = icon;
+      toastMsg.innerHTML = message;
+      toastEl.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove("show"), ms);
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    async function sha256Hash(text) {
+      if (!text) return text;
+      const encoder = new TextEncoder();
+      const data = encoder.encode(text + ENCRYPTION_KEY);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      return hashHex;
+    }
+
+    function normalizeUsername(u) {
+      return u.trim().replace(/[^a-zA-Z0-9_]/g, "");
+    }
+
+    function formatDateTime(ms) {
+      if (!ms) return "никогда";
+      const d = new Date(ms);
+      const now = new Date();
+      const diff = Math.floor((now - d) / 1000);
+      
+      if (diff < 60) return "только что";
+      if (diff < 3600) return `${Math.floor(diff / 60)} мин назад`;
+      if (diff < 86400) return `${Math.floor(diff / 3600)} ч назад`;
+      return d.toLocaleDateString();
+    }
+
+    // ====== СЕССИЯ ======
+    function saveSession(user) {
+      localStorage.setItem(LS_KEY, JSON.stringify(user));
+      sessionUser = user;
+      refreshUI();
+    }
+
+    function clearSession() {
+      localStorage.removeItem(LS_KEY);
+      sessionUser = null;
+      selectedGame = null;
+      refreshUI();
+    }
+
+    function loadSession() {
+      try {
+        const raw = localStorage.getItem(LS_KEY);
+        if (!raw) return null;
+        return JSON.parse(raw);
+      } catch {
+        return null;
+      }
+    }
+
+    // ====== ОБРАБОТЧИКИ ======
+    btnRegister.addEventListener("click", async () => {
+      const username = normalizeUsername(robloxUsername.value);
+      const pass = authPass.value;
+      
+      if (username.length < 3) {
+        authErr.textContent = "Минимум 3 символа";
+        return;
+      }
+      
+      if (pass.length < 4) {
+        authErr.textContent = "Пароль минимум 4 символа";
+        return;
+      }
+      
+      try {
+        // Проверяем, не занят ли ник
+        const existing = localStorage.getItem(`krp_user_${username}`);
+        if (existing) {
+          authErr.textContent = "Этот ник уже занят";
+          return;
+        }
+        
+        const userData = {
+          username,
+          displayName: username,
+          avatar: null,
+          passHash: await sha256Hash(pass),
+          createdAt: Date.now(),
+          lastLogin: Date.now(),
+          launchHistory: [],
+          launchCount: 0
+        };
+        
+        localStorage.setItem(`krp_user_${username}`, JSON.stringify(userData));
+        
+        saveSession({
+          username,
+          displayName: username,
+          avatar: null,
+          launchCount: 0,
+          launchHistory: []
+        });
+        
+        toast("Аккаунт создан! Добро пожаловать в KRP", "check_circle");
+        authErr.textContent = "";
+      } catch (e) {
+        authErr.textContent = "Ошибка регистрации";
+        toast("Ошибка: " + e.message, "error");
+      }
+    });
+
+    btnLogin.addEventListener("click", async () => {
+      const username = normalizeUsername(robloxUsername.value);
+      const pass = authPass.value;
+      
+      if (username.length < 3) {
+        authErr.textContent = "Введите никнейм";
+        return;
+      }
+      
+      if (!pass) {
+        authErr.textContent = "Введите пароль";
+        return;
+      }
+      
+      try {
+        const saved = localStorage.getItem(`krp_user_${username}`);
+        if (!saved) {
+          authErr.textContent = "Аккаунт не найден. Зарегистрируйтесь.";
+          return;
+        }
+        
+        const userData = JSON.parse(saved);
+        const passHash = await sha256Hash(pass);
+        
+        if (passHash !== userData.passHash) {
+          authErr.textContent = "Неверный пароль";
+          return;
+        }
+        
+        // Обновляем время входа
+        userData.lastLogin = Date.now();
+        localStorage.setItem(`krp_user_${username}`, JSON.stringify(userData));
+        
+        saveSession({
+          username,
+          displayName: userData.displayName || username,
+          avatar: userData.avatar,
+          launchCount: userData.launchCount || 0,
+          launchHistory: userData.launchHistory || []
+        });
+        
+        toast("Вход выполнен. Приятной игры на KRP!", "login");
+        authErr.textContent = "";
+      } catch (e) {
+        authErr.textContent = "Ошибка входа";
+        toast("Ошибка: " + e.message, "error");
+      }
+    });
+
+    btnLogout.addEventListener("click", clearSession);
+
+    // Навигация
+    navLauncher.addEventListener("click", () => {
+      showOnly("launcher");
+    });
+    
+    navProfile.addEventListener("click", () => {
+      showOnly("profile");
+      loadProfile();
+    });
+
+    function showOnly(which) {
+      authCard.classList.toggle("hidden", which !== "auth");
+      launcherCard.classList.toggle("hidden", which !== "launcher");
+      profileCard.classList.toggle("hidden", which !== "profile");
+    }
+
+    // Выбор игры
+    game1.addEventListener("click", () => {
+      selectGame(1);
+    });
+    
+    game2.addEventListener("click", () => {
+      selectGame(2);
+    });
+
+    function selectGame(gameId) {
+      selectedGame = gameId;
+      game1.classList.toggle("selected", gameId === 1);
+      game2.classList.toggle("selected", gameId === 2);
+      selectedGameName.textContent = GAMES[gameId].name;
+      btnLaunchGame.disabled = false;
+      btnCopyLink.disabled = false;
+    }
+
+    // Запуск игры
+    btnLaunchGame.addEventListener("click", () => {
+      if (!selectedGame || !sessionUser) return;
+      
+      const game = GAMES[selectedGame];
+      
+      // Сохраняем в историю
+      const launchRecord = {
+        gameId: selectedGame,
+        gameName: game.name,
+        timestamp: Date.now()
+      };
+      
+      sessionUser.launchHistory = sessionUser.launchHistory || [];
+      sessionUser.launchHistory.unshift(launchRecord);
+      if (sessionUser.launchHistory.length > 10) sessionUser.launchHistory.pop();
+      
+      sessionUser.launchCount = (sessionUser.launchCount || 0) + 1;
+      
+      // Обновляем в localStorage
+      const saved = localStorage.getItem(`krp_user_${sessionUser.username}`);
+      if (saved) {
+        const userData = JSON.parse(saved);
+        userData.launchHistory = sessionUser.launchHistory;
+        userData.launchCount = sessionUser.launchCount;
+        localStorage.setItem(`krp_user_${sessionUser.username}`, JSON.stringify(userData));
+      }
+      
+      saveSession(sessionUser);
+      renderLaunchHistory();
+      
+      // Открываем игру в новой вкладке
+      window.open(game.url, "_blank");
+      toast(`Запуск ${game.name}...`, "play_arrow");
+      
+      lastPlayed.innerHTML = `<span class="icon">history</span> Последнее: ${game.name}`;
+    });
+
+    btnCopyLink.addEventListener("click", () => {
+      if (!selectedGame) return;
+      navigator.clipboard.writeText(GAMES[selectedGame].url);
+      toast("Ссылка скопирована!", "link");
+    });
+
+    btnClearHistory.addEventListener("click", () => {
+      if (!sessionUser) return;
+      sessionUser.launchHistory = [];
+      saveSession(sessionUser);
+      renderLaunchHistory();
+      toast("История очищена", "clear_all");
+    });
+
+    // Профиль
+    btnSaveDisplayName.addEventListener("click", () => {
+      if (!sessionUser) return;
+      const newName = displayNameInput.value.trim();
+      if (!newName) return toast("Введите имя", "warning");
+      
+      sessionUser.displayName = newName;
+      
+      // Обновляем в localStorage
+      const saved = localStorage.getItem(`krp_user_${sessionUser.username}`);
+      if (saved) {
+        const userData = JSON.parse(saved);
+        userData.displayName = newName;
+        localStorage.setItem(`krp_user_${sessionUser.username}`, JSON.stringify(userData));
+      }
+      
+      saveSession(sessionUser);
+      toast("Имя сохранено", "check_circle");
+    });
+
+    function loadProfile() {
+      if (!sessionUser) return;
+      displayNameInput.value = sessionUser.displayName || sessionUser.username;
+      robloxName.value = sessionUser.username;
+      launchCount.textContent = sessionUser.launchCount || 0;
+      lastLogin.textContent = formatDateTime(sessionUser.lastLogin);
+      
+      if (sessionUser.avatar) {
+        const html = `<img src="${sessionUser.avatar}" style="width:100%; height:100%; object-fit:cover;">`;
+        profileAvatar.innerHTML = html;
+      } else {
+        const initial = (sessionUser.displayName || sessionUser.username)[0];
+        profileAvatar.innerHTML = `<div class="placeholder">${initial}</div>`;
+      }
+    }
+
+    function renderLaunchHistory() {
+      if (!sessionUser || !sessionUser.launchHistory || sessionUser.launchHistory.length === 0) {
+        launchHistory.innerHTML = '<div style="padding:12px; text-align:center; opacity:0.5;">История запусков пуста</div>';
+        return;
+      }
+      
+      let html = '';
+      for (const record of sessionUser.launchHistory.slice(0, 5)) {
+        html += `
+          <div class="row" style="justify-content:space-between; padding:8px; border-bottom:1px solid var(--outline);">
+            <div>
+              <span class="icon">${GAMES[record.gameId]?.icon || '🎮'}</span>
+              <span>${escapeHtml(record.gameName)}</span>
+            </div>
+            <span style="opacity:0.6; font-size:12px;">${formatDateTime(record.timestamp)}</span>
+          </div>
+        `;
+      }
+      launchHistory.innerHTML = html;
+    }
+
+    function refreshUI() {
+      if (!sessionUser) {
+        statusAuth.innerHTML = `<span class="icon">key</span> Гость`;
+        onlineStatus.className = "badge status-offline";
+        onlineStatus.innerHTML = '<span class="icon">circle</span> Оффлайн';
+        showOnly("auth");
+        btnLogout.classList.add("hidden");
+        navProfile.classList.add("hidden");
+        robloxStatus.classList.add("hidden");
+        return;
+      }
+      
+      btnLogout.classList.remove("hidden");
+      navProfile.classList.remove("hidden");
+      robloxStatus.classList.remove("hidden");
+      
+      statusAuth.innerHTML = `<span class="icon">verified_user</span> <b>${escapeHtml(sessionUser.displayName || sessionUser.username)}</b>`;
+      onlineStatus.className = "badge status-online";
+      onlineStatus.innerHTML = '<span class="icon">circle</span> Онлайн';
+      
+      playerName.innerHTML = `<span class="icon">person</span> ${escapeHtml(sessionUser.displayName || sessionUser.username)}`;
+      playerDisplayName.textContent = sessionUser.displayName || sessionUser.username;
+      
+      // Аватарки
+      const initial = (sessionUser.displayName || sessionUser.username)[0];
+      playerAvatar.innerHTML = `<div class="placeholder">${initial}</div>`;
+      smallAvatar.innerHTML = `<div class="placeholder">${initial}</div>`;
+      
+      renderLaunchHistory();
+      
+      // Если есть последняя игра
+      if (sessionUser.launchHistory && sessionUser.launchHistory.length > 0) {
+        const last = sessionUser.launchHistory[0];
+        lastPlayed.innerHTML = `<span class="icon">history</span> Последнее: ${last.gameName}`;
+      }
+      
+      showOnly("launcher");
+    }
+
+    // Инициализация
+    const savedSession = loadSession();
+    if (savedSession) {
+      sessionUser = savedSession;
+      refreshUI();
+    }
+  </script>
+</body>
+</html>
 
